@@ -3,6 +3,7 @@ import { getConfig } from "../config";
 import { ObsidianClient } from "../client";
 import { print } from "../utils/output";
 import { exitWithError } from "../utils/errors";
+import { c } from "../utils/colors";
 
 export function registerVaultCommand(program: Command): void {
   const vault = program
@@ -23,7 +24,12 @@ export function registerVaultCommand(program: Command): void {
           print(files, { json: true });
         } else {
           for (const file of files) {
-            console.log(file);
+            // Directories end with /
+            if (file.endsWith("/")) {
+              console.log(c.blue(file));
+            } else {
+              console.log(file);
+            }
           }
         }
       } catch (error) {

@@ -36,6 +36,6 @@ export function handleError(error: unknown): ErrorResult {
 
 export function exitWithError(error: unknown): never {
   const { message, exitCode } = handleError(error);
-  console.error(`Error: ${message}`);
+  console.error(`\x1b[31m✖\x1b[0m ${message}`);
   process.exit(exitCode);
 }

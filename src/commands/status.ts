@@ -3,8 +3,9 @@ import { getConfig } from "../config";
 import { ObsidianClient } from "../client";
 import { print } from "../utils/output";
 import { exitWithError } from "../utils/errors";
+import { c } from "../utils/colors";
 
-const CURRENT_VERSION = "0.1.2";
+const CURRENT_VERSION = "0.1.3";
 
 async function checkForUpdates(): Promise<string | null> {
   try {
@@ -43,14 +44,15 @@ export function registerStatusCommand(program: Command): void {
         if (json) {
           print({ ...status, updateAvailable }, { json: true });
         } else {
-          console.log(`Connected to ${status.service}`);
-          console.log(`Obsidian version: ${status.versions.obsidian}`);
-          console.log(`Plugin version: ${status.versions.self}`);
-          console.log(`Authenticated: ${status.authenticated ? "Yes" : "No"}`);
+          console.log(`${c.green("●")} Connected to ${c.bold(status.service)}`);
+          console.log(`  Obsidian: ${c.cyan(status.versions.obsidian)}`);
+          console.log(`  Plugin:   ${c.cyan(status.versions.self)}`);
+          console.log(`  Auth:     ${status.authenticated ? c.green("Yes") : c.red("No")}`);
 
           if (updateAvailable) {
-            console.log(`\nUpdate available: v${updateAvailable} (current: v${CURRENT_VERSION})`);
-            console.log(`Run 'obsidian update' to install`);
+            console.log();
+            console.log(`${c.yellow("⬆")} Update available: ${c.bold(`v${updateAvailable}`)} ${c.dim(`(current: v${CURRENT_VERSION})`)}`);
+            console.log(`  Run ${c.cyan("obsidian update")} to install`);
           }
         }
       } catch (error) {

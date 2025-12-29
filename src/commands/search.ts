@@ -3,6 +3,7 @@ import { getConfig } from "../config";
 import { ObsidianClient } from "../client";
 import { print } from "../utils/output";
 import { exitWithError } from "../utils/errors";
+import { c } from "../utils/colors";
 
 export function registerSearchCommand(program: Command): void {
   program
@@ -26,15 +27,17 @@ export function registerSearchCommand(program: Command): void {
             print(results, { json: true });
           } else {
             if (results.length === 0) {
-              console.log("No results found.");
+              console.log(c.dim("No results found."));
               return;
             }
 
+            console.log(c.dim(`Found ${results.length} result${results.length === 1 ? "" : "s"}:\n`));
+
             for (const result of results) {
-              console.log(`\n${result.filename}`);
+              console.log(c.cyan(result.filename));
               if (result.matches) {
                 for (const match of result.matches) {
-                  console.log(`  ...${match.context}...`);
+                  console.log(`  ${c.dim("...")}${match.context}${c.dim("...")}`);
                 }
               }
             }
