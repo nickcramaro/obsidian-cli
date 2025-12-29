@@ -1,6 +1,6 @@
 {
   "name": "obsidian-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI for Obsidian using Local REST API",
   "type": "module",
   "bin": {
