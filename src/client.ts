@@ -169,7 +169,8 @@ export class ObsidianClient {
 
   async search(query: string, contextLength: number = 100): Promise<SearchResult[]> {
     return this.request<SearchResult[]>(
-      `/search/simple/?query=${encodeURIComponent(query)}&contextLength=${contextLength}`
+      `/search/simple/?query=${encodeURIComponent(query)}&contextLength=${contextLength}`,
+      { method: "POST" }
     );
   }
 
