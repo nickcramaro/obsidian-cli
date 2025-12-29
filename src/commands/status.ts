@@ -5,7 +5,7 @@ import { print } from "../utils/output";
 import { exitWithError } from "../utils/errors";
 import { c } from "../utils/colors";
 
-const CURRENT_VERSION = "0.1.3";
+const CURRENT_VERSION = "0.1.4";
 
 async function checkForUpdates(): Promise<string | null> {
   try {

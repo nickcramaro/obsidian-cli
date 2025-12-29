@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import { spawn } from "child_process";
+import { dirname } from "path";
 import { c } from "../utils/colors";
 
 export function registerUpdateCommand(program: Command): void {
@@ -9,8 +10,11 @@ export function registerUpdateCommand(program: Command): void {
     .action(async () => {
       console.log(`${c.cyan("⬇")} Updating obsidian-cli...\n`);
 
+      // Get directory of current executable to install update there
+      const installDir = dirname(process.execPath);
+
       const installScript =
-        "curl -fsSL https://raw.githubusercontent.com/nickcramaro/obsidian-cli/main/install.sh | bash";
+        `INSTALL_DIR="${installDir}" curl -fsSL https://raw.githubusercontent.com/nickcramaro/obsidian-cli/main/install.sh | bash`;
 
       const child = spawn("bash", ["-c", installScript], {
         stdio: "inherit",

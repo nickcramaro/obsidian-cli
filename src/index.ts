@@ -17,7 +17,7 @@ const program = new Command();
 program
   .name("obsidian")
   .description("CLI for Obsidian using Local REST API")
-  .version("0.1.3")
+  .version("0.1.4")
   .option("--json", "Output as JSON");
 
 registerStatusCommand(program);
