@@ -3,6 +3,7 @@ import { getConfig } from "../config";
 import { ObsidianClient } from "../client";
 import { print } from "../utils/output";
 import { exitWithError } from "../utils/errors";
+import { ensureMdExtension } from "../utils/paths";
 import type { PatchOptions } from "../types";
 
 export function registerNoteCommand(program: Command): void {
@@ -41,9 +42,10 @@ export function registerNoteCommand(program: Command): void {
           body = await Bun.file(options.file).text();
         }
 
-        await client.createFile(path, body);
+        const finalPath = ensureMdExtension(path);
+        await client.createFile(finalPath, body);
         const json = program.opts().json;
-        print(json ? { success: true, path } : `Created: ${path}`, { json });
+        print(json ? { success: true, path: finalPath } : `Created: ${finalPath}`, { json });
       } catch (error) {
         exitWithError(error);
       }
@@ -63,9 +65,10 @@ export function registerNoteCommand(program: Command): void {
           body = await Bun.file(options.file).text();
         }
 
-        await client.updateFile(path, body);
+        const finalPath = ensureMdExtension(path);
+        await client.updateFile(finalPath, body);
         const json = program.opts().json;
-        print(json ? { success: true, path } : `Updated: ${path}`, { json });
+        print(json ? { success: true, path: finalPath } : `Updated: ${finalPath}`, { json });
       } catch (error) {
         exitWithError(error);
       }
